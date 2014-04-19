@@ -32,7 +32,6 @@ import xreliquary.blocks.XRBlocks;
 import xreliquary.items.XRItems;
 import xreliquary.lib.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
-import flaxbeard.thaumicexploration.ThaumicExploration;
 import flaxbeard.thaumicreliquary.ConditionalRecipe;
 
 
@@ -66,23 +65,19 @@ public final class TRRecipes {
     	for (Object rObj : recipes) {
     		IRecipe recipe = (IRecipe) rObj;
     		ItemStack result = null;
-    		if (recipe instanceof ShapedRecipes)
-            {
-                    ShapedRecipes recipe2 = (ShapedRecipes)recipe;
-                    result = recipe2.getRecipeOutput();
-                    if (result.getItem() == XRItems.voidSatchel) {
-                        List<IRecipe> recipeList = CraftingManager.getInstance().getRecipeList();
-                        ConfigResearch.recipes.put("VOIDSATCHEL", rObj);
-                    }
-            }
-            if (recipe instanceof ShapelessRecipes)
-            {
-                    ShapelessRecipes recipe2 = (ShapelessRecipes)recipe;
-                    result = recipe2.getRecipeOutput();
-                    if (result.getItem() == XRItems.voidSatchel) {
-                        List<IRecipe> recipeList = CraftingManager.getInstance().getRecipeList();
-                        ConfigResearch.recipes.put("VOIDSATCHELUPGRADE", rObj);
-                    }
+    		
+            result = recipe.getRecipeOutput();
+            if (result != null) {
+	            if (result.getItem() == XRItems.voidSatchel) {
+	                List<IRecipe> recipeList = CraftingManager.getInstance().getRecipeList();
+	                ConfigResearch.recipes.put("VOIDSATCHEL", rObj);
+	            }
+	            
+	            result = recipe.getRecipeOutput();
+	            if (result.getItem() == XRItems.voidSatchel) {
+	                List<IRecipe> recipeList = CraftingManager.getInstance().getRecipeList();
+	                ConfigResearch.recipes.put("VOIDSATCHELUPGRADE", rObj);
+	            }
             }
             if (result != null) {
             	List<Item> itemsToRemove = Arrays.asList(reliquaryItems);
